@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<h2>Edit Post</h2>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" name="title" value="{{ post.title }}" required>
+  </div>
+
+  <div class="form-group">
+    <label>Content</label>
+    <textarea name="content" rows="6" required>{{ post.content }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Image</label>
+    {% if post.image %}
+      <div class="current-image">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-thumb">
+      </div>
+    {% endif %}
+    <input type="file" name="image" accept="image/*">
+  </div>
+
+  <label class="checkbox-inline">
+    <input type="checkbox" name="is_published" {% if post.is_published %}checked{% endif %}>
+    Published
+  </label>
+
+  <button type="submit" class="btn-primary">Update</button>
+</form>
+{% endblock %}

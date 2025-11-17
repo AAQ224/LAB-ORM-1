@@ -8,9 +8,26 @@
 {% if posts %}
   {% for post in posts %}
     <article class="post-card">
-      <h3>{{ post.title }}</h3>
-      <p class="post-meta">{{ post.published_at|date:"Y-m-d H:i" }}</p>
-      <p>{{ post.content }}</p>
+      <div class="post-card-inner">
+        {% if post.image %}
+          <a href="{% url 'blog:post_detail' post_id=post.id %}">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-thumb">
+          </a>
+        {% endif %}
+        <div class="post-text">
+          <h3>
+            <a href="{% url 'blog:post_detail' post_id=post.id %}">
+              {{ post.title }}
+            </a>
+          </h3>
+          <p class="post-meta">{{ post.published_at|date:"Y-m-d H:i" }}</p>
+          <p>{{ post.content|truncatechars:150 }}</p>
+          <p class="post-actions">
+            <a href="{% url 'blog:edit_post' post_id=post.id %}">Edit</a> |
+            <a href="{% url 'blog:delete_post' post_id=post.id %}">Delete</a>
+          </p>
+        </div>
+      </div>
     </article>
   {% endfor %}
 {% else %}

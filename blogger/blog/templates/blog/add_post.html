@@ -5,7 +5,7 @@
 {% block content %}
 <h2>Add a New Post</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
 
   <div class="form-group">
@@ -18,7 +18,12 @@
     <textarea name="content" rows="6" required></textarea>
   </div>
 
-  <label>
+  <div class="form-group">
+    <label>Image</label>
+    <input type="file" name="image" accept="image/*">
+  </div>
+
+  <label class="checkbox-inline">
     <input type="checkbox" name="is_published" checked>
     Publish now
   </label>
