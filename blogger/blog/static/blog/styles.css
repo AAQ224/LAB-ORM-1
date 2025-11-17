@@ -197,3 +197,30 @@ input[type="file"] {
     display: none;
   }
 }
+
+select {
+    background-color: #1f1f1f;
+    color: #eee;
+    border: 2px solid #00c8c8;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    outline: none;
+}
+
+select:hover {
+    border-color: #00e6e6;
+}
+
+select:focus {
+    border-color: #00e6e6;
+    box-shadow: 0 0 10px rgba(0, 200, 200, 0.4);
+}
+
+select option {
+    background-color: #1f1f1f;
+    color: #eee;
+    padding: 10px;
+}

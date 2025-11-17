@@ -5,6 +5,11 @@
 {% block content %}
 <h2>Latest Posts</h2>
 
+
+{% if q %}
+  <p>Showing results for: "{{ q }}"</p>
+{% endif %} 
+
 {% if posts %}
   {% for post in posts %}
     <article class="post-card">

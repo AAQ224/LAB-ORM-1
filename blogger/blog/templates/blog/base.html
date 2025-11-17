@@ -2,31 +2,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}Blogger{% endblock %}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+    <meta charset="UTF-8">
+    <title>{% block title %}Blogger{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
 </head>
 <body>
-  <header class="site-header">
+<header class="site-header">
     <div class="container header-flex">
-      <h1 class="logo"><a href="{% url 'blog:home' %}">Blogger</a></h1>
-      <nav>
-        <a href="{% url 'blog:home' %}">Home</a>
-        <a href="{% url 'blog:add_post' %}">New Post</a>
-        <a href="{% url 'blog:drafts' %}">Drafts</a>
-      </nav>
+        <div class="logo">
+            <a href="{% url 'blog:home' %}">Blogger</a>
+        </div>
+        <nav>
+            <a href="{% url 'blog:home' %}">Home</a>
+            <a href="{% url 'blog:add_post' %}">New Post</a>
+            <a href="{% url 'blog:drafts' %}">Drafts{% if drafts_count %} ({{ drafts_count }}){% endif %}</a>
+        </nav>
     </div>
-  </header>
+    <div class="container" style="margin-top: 1rem;">
+        <form method="get" action="{% url 'blog:home' %}">
+            <input type="text" name="q" placeholder="Search in posts..." value="{{ q }}">
+            <select name="order">
+                <option value="">Newest first</option>
+                <option value="oldest" {% if order == 'oldest' %}selected{% endif %}>Oldest first</option>
+                <option value="title" {% if order == 'title' %}selected{% endif %}>By title</option>
+            </select>
+            <button type="submit" class="btn-primary">Search</button>
+        </form>
+    </div>
+</header>
 
-  <main class="container">
+<main class="container">
     {% block content %}{% endblock %}
-  </main>
+</main>
 
-  <footer class="site-footer">
+<footer class="site-footer">
     <div class="container">
-      <small>&copy; Blogger</small>
+        <p>Total published posts: {{ total_posts|default:"0" }}</p>
+        <p>&copy; {% now "Y" %} Blogger</p>
     </div>
-  </footer>
+</footer>
 </body>
 </html>
